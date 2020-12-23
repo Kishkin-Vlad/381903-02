@@ -1,0 +1,80 @@
+#include <gtest.h>
+
+#include "Collection.h"
+
+
+TEST(List, can_create_list)
+{
+	ASSERT_NO_THROW(List<int> list);
+}
+
+TEST(List, can_create_list_using_the_copy_constructor)
+{
+	List<int> list1;
+
+	ASSERT_NO_THROW(List<int> list2(list1));
+}
+
+TEST(List, operator_index)
+{
+	List<int> list1;
+	list1.add(10);
+	list1.add(20);
+	list1.add(30);
+	list1.add(40);
+
+	ASSERT_EQ(list1[3], 40);
+}
+
+TEST(List, can_get_count)
+{
+	List<int> list1;
+	list1.add(10);
+	list1.add(20);
+	list1.add(30);
+	list1.add(40);
+
+	ASSERT_EQ(list1.getCount(), 4);
+}
+
+TEST(List, can_add_value)
+{
+	List<int> list1;
+
+	ASSERT_NO_THROW(list1.add(10));
+}
+
+TEST(List, can_pop_value)
+{
+	List<int> list1;
+	list1.add(10);
+	list1.add(20);
+	list1.add(30);
+	list1.add(40);
+	list1.pop(0);
+	list1.pop(1);
+
+	ASSERT_EQ(list1.pop(1), 40);
+}
+
+TEST(List, can_clear_list)
+{
+	List<int> list1;
+	list1.add(10);
+	list1.add(20);
+	list1.add(30);
+	list1.add(40);
+
+	ASSERT_NO_THROW(list1.clear());
+}
+
+TEST(List, can_print_list)
+{
+	List<int> list1;
+	list1.add(10);
+	list1.add(20);
+	list1.add(30);
+	list1.add(40);
+
+	ASSERT_NO_THROW(list1.print());
+}
