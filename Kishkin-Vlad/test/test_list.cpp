@@ -77,4 +77,5 @@ TEST(List, can_print_list)
 	list1.add(40);
 
 	ASSERT_NO_THROW(list1.print());
+	cout << endl;
 }

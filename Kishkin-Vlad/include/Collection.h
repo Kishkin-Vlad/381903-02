@@ -20,7 +20,30 @@ public:
 template<class T>
 class Stack
 {
-	
+private:
+	T* pStack;
+	int size;
+	int top;
+public:
+	Stack(int size = 100);
+	Stack(const Stack<T>& s);
+	~Stack();
+
+	Stack<T>& operator=(const Stack<T>& s);
+	bool operator==(const Stack<T>& s);
+
+	int getSize() const { return this->size; };
+	int getTopIndex() const { return this->top; };
+
+	void add(const T& value); // add value in top
+	T pop(); // del top element
+
+	bool isFull() { return (size - 1 == top); };
+	bool isEmpty() { return (top == -1); };
+
+	void clear();
+
+	void print();
 };
 
 
@@ -47,6 +70,115 @@ public:
 };	
 
 
+/*               ----------------------------------Stack----------------------------------              */
+template<class T>
+Stack<T>::Stack(int size = 100)
+{
+	if (size <= 0)
+		throw logic_error("Stack: size should be > 0");
+	top = -1;
+	this->size = size;
+	pStack = new T[this->size];
+}
+
+template<class T>
+Stack<T>::Stack(const Stack<T>& s)
+{
+	size = s.size;
+	pStack = new T[size];
+	if (s.top == -1)
+		return;
+
+	top = s.top;
+	for (int i = 0; i <= top; i++)
+		pStack[i] = s.pStack[i];
+}
+
+template<class T>
+Stack<T>::~Stack()
+{
+	this->clear();
+}
+
+template<class T>
+Stack<T>& Stack<T>::operator=(const Stack<T>& s)
+{
+	if (this == &s)
+		return *this;
+	delete[] pStack;
+
+	size = s.size;
+	pStack = new T[size];
+	if (s.top == -1)
+		return *this;
+
+	for (int i = 0; i <= top; i++)
+		pStack[i] = s.pStack[i];
+
+	return *this;
+}
+
+template<class T>
+bool Stack<T>::operator==(const Stack<T>& s)
+{
+	if (size != s.size || top != s.top)
+		return false;
+
+	for (int i = 0; i <= top; i++)
+		if (pStack[i] != s.pStack[i])
+			return false;
+
+	return true;
+}
+
+template<class T>
+void Stack<T>::add(const T& value)
+{
+	if (this->isFull())
+		throw logic_error("Stack: is overflow");
+	
+	top++;
+	pStack[top] = value;
+}
+
+template<class T>
+T Stack<T>::pop()
+{
+	if (this->isEmpty())
+		throw logic_error("Stack: is empty");
+	
+	T value = pStack[top];
+	top--;
+
+	return value;
+}
+
+template<class T>
+void Stack<T>::clear()
+{
+	top = -1;
+	size = 0;
+	delete[] pStack;
+	pStack = 0;
+}
+
+template <typename T>
+void Stack<T>::print()
+{
+	if (this->top == -1)
+	{
+		cout << "Stack: is empty" << endl;
+		return;
+	}
+
+	cout << "[";
+	for (int i = 0; i < top; i++)
+		cout << pStack[i] << ", ";
+	cout << pStack[top] << "]";
+}
+
+
+/*               ----------------------------------List----------------------------------              */
 template<class T>
 List<T>::List()
 {
@@ -97,8 +229,8 @@ template <typename T>
 T List<T>::pop(int index)
 {
 	/* 
-		¬озвращает удаленное значение
-		”дал€етс€ так же, как беретс€ по индексу (начина€ с 0)
+		return deleted element
+		begin with 0 (as operator[])	
 	*/
 	if (index >= this->count)
 		throw logic_error("List: Index out of the range");
@@ -176,7 +308,7 @@ void List<T>::print()
 {
 	if (this->count == 0)
 	{
-		cout << "List is empty" << endl;
+		cout << "List: is empty" << endl;
 		return;
 	}
 
@@ -186,7 +318,7 @@ void List<T>::print()
 	{
 		if (node->next == NULL)
 		{
-			cout << node->value << "]" << endl;
+			cout << node->value << "]";
 			return;
 		}
 		cout << node->value << ", ";
