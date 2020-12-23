@@ -10,7 +10,7 @@ foreach(sample_filename ${samples_list})
   add_executable(${sample} ${sample_filename})
   target_link_libraries(${sample} ${MP2_LIBRARY})
   set_target_properties(${sample} PROPERTIES
-    OUTPUT_NAME "${sample}"
-    PROJECT_LABEL "${sample}"
-    RUNTIME_OUTPUT_DIRECTORY "../")
+  OUTPUT_NAME "${sample}"
+  PROJECT_LABEL "${sample}"
+  RUNTIME_OUTPUT_DIRECTORY "../")
 endforeach()
