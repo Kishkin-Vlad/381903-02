@@ -77,29 +77,18 @@ void Formula::LexicalAnalysis(ICollection<Lexem*>* list)
 				state = q3;
 				list->add(new Lexem(lex, UNARY_OPERATOR));
 			}
-			else if (ch == '(' || ch == '[' || ch == '{')
+			else if (ch == '(')
 			{
 				count_brackets++;
 				list->add(new Lexem(lex, L_BRACKET));
 			}
-			else if (ch == ')' || ch == ']' || ch == '}')
+			else if (ch == ')')
 			{
 				state = q2;
 
 				count_brackets--;
 				if (count_brackets < 0)
 					throw logic_error("Formula: count left and right brackets not the same");
-
-				// comprassion left and right brackets
-				/*int index1 = list->rfind(new Lexem("(", L_BRACKET));
-				int index2 = list->rfind(new Lexem("[", L_BRACKET));
-				int index3 = list->rfind(new Lexem("{", L_BRACKET));
-				if (!(ch == ')' && index1 > index2 && index1 > index3))
-					throw logic_error("Formula: different brackets");
-				else if (!(ch == ']' && index2 > index1 && index2 > index3))
-					throw logic_error("Formula: different brackets");
-				else if (!(ch == '}' && index3 > index1 && index3 > index2))
-					throw logic_error("Formula: different brackets");*/
 
 				list->add(new Lexem(lex, R_BRACKET));
 			}
@@ -134,36 +123,19 @@ void Formula::LexicalAnalysis(ICollection<Lexem*>* list)
 					state = q2;
 					list->add(new Lexem("*", BIN_OPERATOR, -1, 2));
 				}
-				else if (ch == '(' || ch == '[' || ch == '{')
+				else if (ch == '(')
 				{
 					state = q0;
 					count_brackets++;
 					list->add(new Lexem(lex, L_BRACKET));
 				}
-				else if (ch == ')' || ch == ']' || ch == '}')
+				else if (ch == ')')
 				{
 					state = q2;
 
 					count_brackets--;
 					if (count_brackets < 0)
 						throw logic_error("Formula: count left and right brackets not the same");
-
-					// comprassion left and right brackets
-					/*Lexem* temp = new Lexem("(", L_BRACKET);
-					int index1 = list->rfind(temp);
-					int n = 1;*/
-					/*temp("[", L_BRACKET);
-					int index2 = list->rfind(temp);
-					
-					temp = new Lexem("{", L_BRACKET);
-					int index3 = list->rfind(temp);*/
-
-					/*if (ch == ')' && !(index1 > index2 && index1 > index3))
-						throw logic_error("Formula: different brackets");
-					else if (ch == ']' && !(index2 > index1 && index2 > index3))
-						throw logic_error("Formula: different brackets");
-					else if (ch == '}' && !(index3 > index1 && index3 > index2))
-						throw logic_error("Formula: different brackets");*/
 
 					list->add(new Lexem(lex, R_BRACKET));
 				}
@@ -203,31 +175,20 @@ void Formula::LexicalAnalysis(ICollection<Lexem*>* list)
 					state = q3;
 					list->add(new Lexem(lex, BIN_OPERATOR, -1, 3));
 				}
-				else if (ch == '(' || ch == '[' || ch == '{')
+				else if (ch == '(')
 				{
 					state = q0;
 					count_brackets++;
 					list->add(new Lexem("*", BIN_OPERATOR, -1, 2));
 					list->add(new Lexem(lex, L_BRACKET));
 				}
-				else if (ch == ')' || ch == ']' || ch == '}')
+				else if (ch == ')')
 				{
 					state = q2;
 
 					count_brackets--;
 					if (count_brackets < 0)
 						throw logic_error("Formula: count left and right brackets not the same");
-
-					// comprassion left and right brackets
-					/*int index1 = list->rfind(new Lexem("(", L_BRACKET));
-					int index2 = list->rfind(new Lexem("[", L_BRACKET));
-					int index3 = list->rfind(new Lexem("{", L_BRACKET));
-					if (!(ch == ')' && index1 > index2 && index1 > index3))
-						throw logic_error("Formula: different brackets");
-					else if (!(ch == ']' && index2 > index1 && index2 > index3))
-						throw logic_error("Formula: different brackets");
-					else if (!(ch == '}' && index3 > index1 && index3 > index2))
-						throw logic_error("Formula: different brackets");*/
 
 					list->add(new Lexem(lex, R_BRACKET));
 				}
@@ -282,7 +243,7 @@ void Formula::LexicalAnalysis(ICollection<Lexem*>* list)
 
 					list->add(new Lexem(lex, BIN_OPERATOR, -1, 3));
 				}
-				else if (ch == '(' || ch == '[' || ch == '{')
+				else if (ch == '(')
 				{
 					state = q0;
 					count_brackets++;
@@ -293,24 +254,13 @@ void Formula::LexicalAnalysis(ICollection<Lexem*>* list)
 					lex = ch;
 					list->add(new Lexem(lex, L_BRACKET));
 				}
-				else if (ch == ')' || ch == ']' || ch == '}')
+				else if (ch == ')')
 				{
 					state = q2;
 
 					count_brackets--;
 					if (count_brackets < 0)
 						throw logic_error("Formula: count left and right brackets not the same");
-
-					// comprassion left and right brackets
-					/*int index1 = list->rfind(new Lexem("(", L_BRACKET));
-					int index2 = list->rfind(new Lexem("[", L_BRACKET));
-					int index3 = list->rfind(new Lexem("{", L_BRACKET));
-					if (!(ch == ')' && index1 > index2 && index1 > index3))
-						throw logic_error("Formula: different brackets");
-					else if (!(ch == ']' && index2 > index1 && index2 > index3))
-						throw logic_error("Formula: different brackets");
-					else if (!(ch == '}' && index3 > index1 && index3 > index2))
-						throw logic_error("Formula: different brackets");*/
 
 					(*vars)[lex] = 0;
 					list->add(new Lexem(lex, VAR));
@@ -341,29 +291,18 @@ void Formula::LexicalAnalysis(ICollection<Lexem*>* list)
 				state = q2;
 			else if (ch == '-')
 				list->add(new Lexem(lex, UNARY_OPERATOR));
-			else if (ch == '(' || ch == '[' || ch == '{')
+			else if (ch == '(')
 			{
 				count_brackets++;
 				list->add(new Lexem(lex, L_BRACKET));
 			}
-			else if (ch == ')' || ch == ']' || ch == '}')
+			else if (ch == ')')
 			{
 				state = q2;
 
 				count_brackets--;
 				if (count_brackets < 0)
 					throw logic_error("Formula: count left and right brackets not the same");
-
-				// comprassion left and right brackets
-				/*int index1 = list->rfind(new Lexem("(", L_BRACKET));
-				int index2 = list->rfind(new Lexem("[", L_BRACKET));
-				int index3 = list->rfind(new Lexem("{", L_BRACKET));
-				if (!(ch == ')' && index1 > index2 && index1 > index3))
-					throw logic_error("Formula: different brackets");
-				else if (!(ch == ']' && index2 > index1 && index2 > index3))
-					throw logic_error("Formula: different brackets");
-				else if (!(ch == '}' && index3 > index1 && index3 > index2))
-					throw logic_error("Formula: different brackets");*/
 
 				list->add(new Lexem(lex, R_BRACKET));
 			}
