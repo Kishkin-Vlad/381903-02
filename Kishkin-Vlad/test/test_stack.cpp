@@ -23,7 +23,7 @@ TEST(Stack, is_empty)
 TEST(Stack, is_Full)
 {
     Stack<int> s(10);
-    for (int i = 0; i < s.getSize(); i++)
+    for (int i = 0; i < s.getFullSize(); i++)
     {
         s.add(10);
     }
@@ -78,7 +78,7 @@ TEST(Stack, assign_operator_change_stack_size)
     Stack<int> s1(10);
     Stack<int> s2(5);
     s2 = s1;
-    EXPECT_EQ(10, s2.getSize());
+    EXPECT_EQ(10, s2.getFullSize());
 }
 
 TEST(Stack, compare_equal_stacks)
@@ -145,6 +145,65 @@ TEST(Stack, cant_pop_element_from_empty_stack)
     ASSERT_ANY_THROW(s.pop());
 }
 
+TEST(Stack, can_find_elem_with_this_elem)
+{
+    Stack<int> s;
+    s.add(10);
+    s.add(20);
+    s.add(30);
+    s.add(40);
+    s.add(20);
+    s.add(50);
+
+    ASSERT_EQ(s.find(20), 1);
+}
+
+TEST(Stack, can_find_elem_without_this_elem)
+{
+    Stack<int> s;
+    s.add(10);
+    s.add(30);
+    s.add(40);
+    s.add(50);
+
+    ASSERT_EQ(s.find(20), -1);
+}
+
+TEST(Stack, can_reverse_find_elem_with_this_elem)
+{
+    Stack<int> s;
+    s.add(10);
+    s.add(20);
+    s.add(30);
+    s.add(40);
+    s.add(20);
+    s.add(50);
+
+    ASSERT_EQ(s.rfind(20), 4);
+}
+
+TEST(Stack, can_reverse_find_elem_without_this_elem)
+{
+    Stack<int> s;
+    s.add(10);
+    s.add(30);
+    s.add(40);
+    s.add(50);
+
+    ASSERT_EQ(s.rfind(20), -1);
+}
+
+TEST(Stack, can_get_last_elem)
+{
+    Stack<int> s;
+    s.add(10);
+    s.add(30);
+    s.add(40);
+    s.add(50);
+
+    ASSERT_EQ(s.getLast(), 50);
+}
+
 TEST(Stack, can_print_stack)
 {
     Stack<int> s;
@@ -153,6 +212,6 @@ TEST(Stack, can_print_stack)
     s.add(30);
     s.add(40);
 
-    ASSERT_NO_THROW(s.print());
+    ASSERT_NO_THROW(cout << s);
     cout << endl;
 }

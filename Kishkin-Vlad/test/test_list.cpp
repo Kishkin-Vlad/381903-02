@@ -34,7 +34,7 @@ TEST(List, can_get_count)
 	list1.add(30);
 	list1.add(40);
 
-	ASSERT_EQ(list1.getCount(), 4);
+	ASSERT_EQ(list1.getSize(), 4);
 }
 
 TEST(List, can_add_value)
@@ -57,6 +57,76 @@ TEST(List, can_pop_value)
 	ASSERT_EQ(list1.pop(1), 40);
 }
 
+TEST(List, can_pop_last_value)
+{
+	List<int> list1;
+	list1.add(10);
+	list1.add(20);
+	list1.add(30);
+	list1.add(40);
+
+	ASSERT_EQ(list1.pop(), 40);
+}
+
+TEST(List, can_find_elem_with_this_elem)
+{
+	List<int> list1;
+	list1.add(10);
+	list1.add(20);
+	list1.add(30);
+	list1.add(40);
+	list1.add(20);
+	list1.add(50);
+
+	ASSERT_EQ(list1.find(20), 1);
+}
+
+TEST(List, can_find_elem_without_this_elem)
+{
+	List<int> list1;
+	list1.add(10);
+	list1.add(30);
+	list1.add(40);
+	list1.add(50);
+
+	ASSERT_EQ(list1.find(20), -1);
+}
+
+TEST(List, can_reverse_find_elem_with_this_elem)
+{
+	List<int> list1;
+	list1.add(10);
+	list1.add(20);
+	list1.add(30);
+	list1.add(40);
+	list1.add(20);
+	list1.add(50);
+
+	ASSERT_EQ(list1.rfind(20), 4);
+}
+
+TEST(List, can_reverse_find_elem_without_this_elem)
+{
+	List<int> list1;
+	list1.add(10);
+	list1.add(30);
+	list1.add(40);
+	list1.add(50);
+
+	ASSERT_EQ(list1.rfind(20), -1);
+}
+
+TEST(List, can_get_last_elem)
+{
+	List<int> list1;
+	list1.add(10);
+	list1.add(30);
+	list1.add(40);
+	list1.add(50);
+
+	ASSERT_EQ(list1.getLast(), 50);
+}
+
 TEST(List, can_clear_list)
 {
 	List<int> list1;
@@ -76,6 +146,6 @@ TEST(List, can_print_list)
 	list1.add(30);
 	list1.add(40);
 
-	ASSERT_NO_THROW(list1.print());
+	ASSERT_NO_THROW(cout << list1);
 	cout << endl;
 }
